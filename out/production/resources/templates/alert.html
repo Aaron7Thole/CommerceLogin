@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <title>Alert Page</title>
+  <meta name="description" content="Bootstrap.">
+  <link rel="stylesheet" href="sty.css">
+  </style>
+  <script type="text/javascript" src="ajax.js"></script>
+  <script type="text/javascript" src="filter.js"></script>
+  <link rel="stylesheet" href="alertStyle.css">
+  <link rel="stylesheet" href="popup.css">
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css">
+  </style>
+</head>
+<body style="margin:20px auto">
+  <div id="Logo">
+    <img id="Logo_img" class="img " src="logo.png" />
+  </div>
+  <div id="h1">
+    <p><img id="u_img" class="img " src="user.png" /><span>UserName</span></p>
+  </div>
+  <div class="container"></div>
+
+  <table id="myTable" class="table table-striped">
+    <thead>
+      <tr>
+        <th>Timestamp<img src="arrows.png"width="12" height="auto"/></th>
+        <th>Hostname<img src="arrows.png"width="12" height="auto"/></th>
+        <th>File<img src="arrows.png"width="12" height="auto"/></th>
+        <th>Change_agent<img src="arrows.png"width="12" height="auto"/></th>
+        <th>Change_process<img src="arrows.png"width="12" height="auto"/></th>
+        <th>Letter<img src="arrows.png"width="12" height="auto"/></th>
+        <th>Number<img src="arrows.png"width="12" height="auto"/></th>
+        <th>Acknowledge Alerts<img src="arrows.png"width="12" height="auto"/></th>
+        <th>Notes</th>
+      </tr>
+      <tr th:each="alert : ${alerts}">
+        <td th:text="${alert.getTimestamp()}"></td>
+        <td th:text="${alert.getHostname()}"></td>
+        <td th:text="${alert.getFile()}"></td>
+        <td th:text="${alert.getChangeagent()}"></td>
+        <td th:text="${alert.getChangeprocess()}"></td>
+        <td >A</td>
+        <td >1</td>
+        <td th:text="${alert.getAckstatus()}"></td>
+        <td th:text="${alert.getAcknote()}"></td>
+
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>04/02/22 12:37:00 PM</td>
+        <td>Name #1</td>
+        <td>C:/Programe_Files/</td>
+        <td>JohnAcc</td>
+        <td>Microsoft_Word</td>
+        <td>1</td>
+        <td>A</td>
+        <td><button id="seen">Unacknowledged</button></td>
+        <td><button class="view-modal">Notes</button><div class="popup">
+          <header>
+            <span><input type="radio" id="Intentional" name="option" value="Intentional">
+              <label for="Intentional">Intentional</label><br></span>
+            <span><input type="radio" id="Malicious" name="option" value="Malicious">
+              <label for="Malicious">Malicious</label><br></span>
+            <div class="close"><i class="uil uil-times"></i></div>
+          </header>
+          <div class="content">
+            <p></p>
+            <textarea rows="10"cols="44" placeholder="Notes"></textarea>
+            <div class="field"></div>
+          </div>
+        </div></td>
+      </tr>
+      <tr>
+        <td>04/02/22 12:37:00 PM</td>
+        <td>Name #2</td>
+        <td>C:/Programe_Files/</td>
+        <td>JohnAcc</td>
+        <td>Microsoft_Word</td>
+        <td>2</td>
+        <td>B</td>
+        <td><button id="seen">Unacknowledged</button></td>
+        <td><button class="view-modal">Notes</button><div class="popup">
+          <header>
+            <span><input type="radio" id="Intentional" name="option" value="Intentional">
+              <label for="Intentional">Intentional</label><br></span>
+            <span><input type="radio" id="Malicious" name="option" value="Malicious">
+              <label for="Malicious">Malicious</label><br></span>
+            <div class="close"><i class="uil uil-times"></i></div>
+          </header>
+          <div class="content">
+            <p></p>
+            <textarea rows="10"cols="44" placeholder="Notes"></textarea>
+            <div class="field"></div>
+          </div>
+        </div></td>
+      </tr>
+       <tr>
+        <td>04/02/22 12:37:00 PM</td>
+        <td>Name #3</td>
+        <td>C:/Programe_Files/</td>
+        <td>JohnAcc</td>
+        <td>Microsoft_Word</td>
+        <td>3</td>
+        <td>C</td>
+        <td><button id="seen">Unacknowledged</button></td>
+        <td><button class="view-modal">Notes</button><div class="popup">
+          <header>
+            <span><input type="radio" id="Intentional" name="option" value="Intentional">
+              <label for="Intentional">Intentional</label><br></span>
+            <span><input type="radio" id="Malicious" name="option" value="Malicious">
+              <label for="Malicious">Malicious</label><br></span>
+            <div class="close"><i class="uil uil-times"></i></div>
+          </header>
+          <div class="content">
+            <p></p>
+            <textarea rows="10"cols="44" placeholder="Notes"></textarea>
+            <div class="field"></div>
+          </div>
+        </div></td>
+      </tr>
+      <tr>
+        <td>04/02/22 12:37:00 PM</td>
+        <td>Name #4</td>
+        <td>C:/Programe_Files/</td>
+        <td>JohnAcc</td>
+        <td>Microsoft_Word</td>
+        <td>4</td>
+        <td>D</td>
+        <td><button id="seen">Unacknowledged</button></td>
+        <td><button class="view-modal">Notes</button><div class="popup">
+          <header>
+            <span><input type="radio" id="Intentional" name="option" value="Intentional">
+              <label for="Intentional">Intentional</label><br></span>
+            <span><input type="radio" id="Malicious" name="option" value="Malicious">
+              <label for="Malicious">Malicious</label><br></span>
+            <div class="close"><i class="uil uil-times"></i></div>
+          </header>
+          <div class="content">
+            <p></p>
+            <textarea rows="10"cols="44" placeholder="Notes"></textarea>
+            <div class="field"></div>
+          </div>
+        </div></td>
+      </tr>
+      <tr>
+        <td>04/02/22 12:37:00 PM</td>
+        <td>Name #5</td>
+        <td>C:/Programe_Files/</td>
+        <td>JohnAcc</td>
+        <td>Microsoft_Word</td>
+        <td>5</td>
+        <td>E</td>
+        <td><button id="seen">Unacknowledged</button></td>
+        <td><button class="view-modal">Notes</button><div class="popup">
+          <header>
+            <span><input type="radio" id="Intentional" name="option" value="Intentional">
+              <label for="Intentional">Intentional</label><br></span>
+            <span><input type="radio" id="Malicious" name="option" value="Malicious">
+              <label for="Malicious">Malicious</label><br></span>
+            <div class="close"><i class="uil uil-times"></i></div>
+          </header>
+          <div class="content">
+            <p></p>
+            <textarea rows="10"cols="44" placeholder="Notes"></textarea>
+            <div class="field"></div>
+          </div>
+        </div></td>
+      </tr>
+      <tr>
+        <td>04/02/22 12:37:00 PM</td>
+        <td>Name #6</td>
+        <td>C:/Programe_Files/</td>
+        <td>JohnAcc</td>
+        <td>Microsoft_Word</td>
+        <td>6</td>
+        <td>F</td>
+        <td><button id="seen">Unacknowledged</button></td>
+        <td><button class="view-modal">Notes</button><div class="popup">
+          <header>
+            <span><input type="radio" id="Intentional" name="option" value="Intentional">
+              <label for="Intentional">Intentional</label><br></span>
+            <span><input type="radio" id="Malicious" name="option" value="Malicious">
+              <label for="Malicious">Malicious</label><br></span>
+            <div class="close"><i class="uil uil-times"></i></div>
+          </header>
+          <div class="content">
+            <p></p>
+            <textarea rows="10"cols="44" placeholder="Notes"></textarea>
+            <div class="field"></div>
+          </div>
+        </div></td>
+      </tr>
+      
+      <tr>
+        <td>04/02/22 12:37:00 PM</td>
+        <td>Name #7</td>
+        <td>C:/Programe_Files/</td>
+        <td>JohnAcc</td>
+        <td>Microsoft_Word</td>
+        <td>7</td>
+        <td>G</td>
+        <td><button id="seen">Unacknowledged</button></td>
+        <td><button class="view-modal">Notes</button><div class="popup">
+          <header>
+            <span><input type="radio" id="Intentional" name="option" value="Intentional">
+              <label for="Intentional">Intentional</label><br></span>
+            <span><input type="radio" id="Malicious" name="option" value="Malicious">
+              <label for="Malicious">Malicious</label><br></span>
+            <div class="close"><i class="uil uil-times"></i></div>
+          </header>
+          <div class="content">
+            <p></p>
+            <textarea rows="10"cols="44" placeholder="Notes"></textarea>
+            <div class="field"></div>
+          </div>
+        </div></td>
+      </tr>
+      <tr>
+        <td>04/02/22 12:37:00 PM</td>
+        <td>Name #8</td>
+        <td>C:/Programe_Files/</td>
+        <td>JohnAcc</td>
+        <td>Microsoft_Word</td>
+        <td>8</td>
+        <td>H</td>
+        <td><button id="seen">Unacknowledged</button></td>
+        <td><button class="view-modal">Notes</button><div class="popup">
+          <header>
+            <span><input type="radio" id="Intentional" name="option" value="Intentional">
+              <label for="Intentional">Intentional</label><br></span>
+            <span><input type="radio" id="Malicious" name="option" value="Malicious">
+              <label for="Malicious">Malicious</label><br></span>
+            <div class="close"><i class="uil uil-times"></i></div>
+          </header>
+          <div class="content">
+            <p></p>
+            <textarea rows="10"cols="44" placeholder="Notes"></textarea>
+            <div class="field"></div>
+          </div>
+        </div></td>
+      </tr>
+      <tr>
+        <td>04/02/22 12:37:00 PM</td>
+        <td>Name #9</td>
+        <td>C:/Programe_Files/</td>
+        <td>JohnAcc</td>
+        <td>Microsoft_Word</td>
+        <td>9</td>
+        <td>I</td>
+        <td><button id="seen">Unacknowledged</button></td>
+        <td><button class="view-modal">Notes</button><div class="popup">
+          <header>
+            <span><input type="radio" id="Intentional" name="option" value="Intentional">
+              <label for="Intentional">Intentional</label><br></span>
+            <span><input type="radio" id="Malicious" name="option" value="Malicious">
+              <label for="Malicious">Malicious</label><br></span>
+            <div class="close"><i class="uil uil-times"></i></div>
+          </header>
+          <div class="content">
+            <p></p>
+            <textarea rows="10"cols="44" placeholder="Notes"></textarea>
+            <div class="field"></div>
+          </div>
+        </div></td>
+      </tr>
+      <tr>
+        <td>04/02/22 12:37:00 PM</td>
+        <td>Name #10</td>
+        <td>C:/Programe_Files/</td>
+        <td>JohnAcc</td>
+        <td>Microsoft_Word</td>
+        <td>10</td>
+        <td>J</td>
+        <td><button id="seen">Unacknowledged</button></td>
+        <td><button class="view-modal">Notes</button><div class="popup">
+          <header>
+            <span><input type="radio" id="Intentional" name="option" value="Intentional">
+              <label for="Intentional">Intentional</label><br></span>
+            <span><input type="radio" id="Malicious" name="option" value="Malicious">
+              <label for="Malicious">Malicious</label><br></span>
+            <div class="close"><i class="uil uil-times"></i></div>
+          </header>
+          <div class="content">
+            <p></p>
+            <textarea rows="10"cols="44" placeholder="Notes"></textarea>
+            <div class="field"></div>
+          </div>
+        </div></td>
+      </tr>
+      <!--
+      <tr>
+        <td>04/02/22 12:37:00 PM</td>
+        <td>Name #11</td>
+        <td>C:/Programe_Files/</td>
+        <td>JohnAcc</td>
+        <td>Microsoft_Word</td>
+        <td>11</td>
+        <td>K</td>
+        <td><button id="seen">Unacknowledged</button></td>
+        <td><button class="view-modal">Notes</button><div class="popup">
+          <header>
+            <span><input type="radio" id="Intentional" name="option" value="Intentional">
+              <label for="Intentional">Intentional</label><br></span>
+            <span><input type="radio" id="Malicious" name="option" value="Malicious">
+              <label for="Malicious">Malicious</label><br></span>
+            <div class="close"><i class="uil uil-times"></i></div>
+          </header>
+          <div class="content">
+            <p></p>
+            <textarea rows="10"cols="44" placeholder="Notes"></textarea>
+            <div class="field"></div>
+          </div>
+        </div></td>
+      </tr>
+      <tr>
+        <td>04/02/22 12:37:00 PM</td>
+        <td>Name #12</td>
+        <td>C:/Programe_Files/</td>
+        <td>JohnAcc</td>
+        <td>Microsoft_Word</td>
+        <td>12</td>
+        <td>L</td>
+        <td><button id="seen">Unacknowledged</button></td>
+        <td><button class="view-modal">Notes</button><div class="popup">
+          <header>
+            <span><input type="radio" id="Intentional" name="option" value="Intentional">
+              <label for="Intentional">Intentional</label><br></span>
+            <span><input type="radio" id="Malicious" name="option" value="Malicious">
+              <label for="Malicious">Malicious</label><br></span>
+            <div class="close"><i class="uil uil-times"></i></div>
+          </header>
+          <div class="content">
+            <p></p>
+            <textarea rows="10"cols="44" placeholder="Notes"></textarea>
+            <div class="field"></div>
+          </div>
+        </div></td>
+      </tr>
+      <tr>
+        <td>04/02/22 12:37:00 PM</td>
+        <td>Name #13</td>
+        <td>C:/Programe_Files/</td>
+        <td>JohnAcc</td>
+        <td>Microsoft_Word</td>
+        <td>13</td>
+        <td>M</td>
+        <td><button id="seen">Unacknowledged</button></td>
+        <td><button class="view-modal">Notes</button><div class="popup">
+          <header>
+            <span><input type="radio" id="Intentional" name="option" value="Intentional">
+              <label for="Intentional">Intentional</label><br></span>
+            <span><input type="radio" id="Malicious" name="option" value="Malicious">
+              <label for="Malicious">Malicious</label><br></span>
+            <div class="close"><i class="uil uil-times"></i></div>
+          </header>
+          <div class="content">
+            <p></p>
+            <textarea rows="10"cols="44" placeholder="Notes"></textarea>
+            <div class="field"></div>
+          </div>
+        </div></td>
+      </tr>
+      <tr>
+        <td>04/02/22 12:37:00 PM</td>
+        <td>Name #14</td>
+        <td>C:/Programe_Files/</td>
+        <td>JohnAcc</td>
+        <td>Microsoft_Word</td>
+        <td>14</td>
+        <td>N</td>
+        <td><button id="seen">Unacknowledged</button></td>
+        <td><button class="view-modal">Notes</button><div class="popup">
+          <header>
+            <span><input type="radio" id="Intentional" name="option" value="Intentional">
+              <label for="Intentional">Intentional</label><br></span>
+            <span><input type="radio" id="Malicious" name="option" value="Malicious">
+              <label for="Malicious">Malicious</label><br></span>
+            <div class="close"><i class="uil uil-times"></i></div>
+          </header>
+          <div class="content">
+            <p></p>
+            <textarea rows="10"cols="44" placeholder="Notes"></textarea>
+            <div class="field"></div>
+          </div>
+        </div></td>
+      </tr>
+      <tr>
+        <td>04/02/22 12:37:00 PM</td>
+        <td>Name #15</td>
+        <td>C:/Programe_Files/</td>
+        <td>JohnAcc</td>
+        <td>Microsoft_Word</td>
+        <td>15</td>
+        <td>o</td>
+        <td><button id="seen">Unacknowledged</button></td>
+        <td><button class="view-modal">Notes</button><div class="popup">
+          <header>
+            <span><input type="radio" id="Intentional" name="option" value="Intentional">
+              <label for="Intentional">Intentional</label><br></span>
+            <span><input type="radio" id="Malicious" name="option" value="Malicious">
+              <label for="Malicious">Malicious</label><br></span>
+            <div class="close"><i class="uil uil-times"></i></div>
+          </header>
+          <div class="content">
+            <p></p>
+            <textarea rows="10"cols="44" placeholder="Notes"></textarea>
+            <div class="field"></div>
+          </div>
+        </div></td>
+      </tr>
+
+      <tr>
+        <td>04/02/22 12:37:00 PM</td>
+        <td>Name #16</td>
+        <td>C:/Programe_Files/</td>
+        <td>JohnAcc</td>
+        <td>Microsoft_Word</td>
+        <td>16</td>
+        <td>P</td>
+        <td><button id="seen">Unacknowledged</button></td>
+        <td><button class="view-modal">Notes</button><div class="popup">
+          <header>
+            <span><input type="radio" id="Intentional" name="option" value="Intentional">
+              <label for="Intentional">Intentional</label><br></span>
+            <span><input type="radio" id="Malicious" name="option" value="Malicious">
+              <label for="Malicious">Malicious</label><br></span>
+            <div class="close"><i class="uil uil-times"></i></div>
+          </header>
+          <div class="content">
+            <p></p>
+            <textarea rows="10"cols="44" placeholder="Notes"></textarea>
+            <div class="field"></div>
+          </div>
+        </div></td>
+      </tr>
+      <tr>
+        <td>04/02/22 12:37:00 PM</td>
+        <td>Name #17</td>
+        <td>C:/Programe_Files/</td>
+        <td>JohnAcc</td>
+        <td>Microsoft_Word</td>
+        <td>17</td>
+        <td>Q</td>
+        <td><button id="seen">Unacknowledged</button></td>
+        <td><button class="view-modal">Notes</button><div class="popup">
+          <header>
+            <span><input type="radio" id="Intentional" name="option" value="Intentional">
+              <label for="Intentional">Intentional</label><br></span>
+            <span><input type="radio" id="Malicious" name="option" value="Malicious">
+              <label for="Malicious">Malicious</label><br></span>
+            <div class="close"><i class="uil uil-times"></i></div>
+          </header>
+          <div class="content">
+            <p></p>
+            <textarea rows="10"cols="44" placeholder="Notes"></textarea>
+            <div class="field"></div>
+          </div>
+        </div></td>
+      </tr>
+      <tr>
+        <td>04/02/22 12:37:00 PM</td>
+        <td>Name #18</td>
+        <td>C:/Programe_Files/</td>
+        <td>JohnAcc</td>
+        <td>Microsoft_Word</td>
+        <td>18</td>
+        <td>R</td>
+        <td><button id="seen">Unacknowledged</button></td>
+        <td><button class="view-modal">Notes</button><div class="popup">
+          <header>
+            <span><input type="radio" id="Intentional" name="option" value="Intentional">
+              <label for="Intentional">Intentional</label><br></span>
+            <span><input type="radio" id="Malicious" name="option" value="Malicious">
+              <label for="Malicious">Malicious</label><br></span>
+            <div class="close"><i class="uil uil-times"></i></div>
+          </header>
+          <div class="content">
+            <p></p>
+            <textarea rows="10"cols="44" placeholder="Notes"></textarea>
+            <div class="field"></div>
+          </div>
+        </div></td>
+      </tr>
+      <tr>
+        <td>04/02/22 12:37:00 PM</td>
+        <td>Name #19</td>
+        <td>C:/Programe_Files/</td>
+        <td>JohnAcc</td>
+        <td>Microsoft_Word</td>
+        <td>19</td>
+        <td>S</td>
+        <td><button id="seen">Unacknowledged</button></td>
+        <td><button class="view-modal">Notes</button><div class="popup">
+          <header>
+            <span><input type="radio" id="Intentional" name="option" value="Intentional">
+              <label for="Intentional">Intentional</label><br></span>
+            <span><input type="radio" id="Malicious" name="option" value="Malicious">
+              <label for="Malicious">Malicious</label><br></span>
+            <div class="close"><i class="uil uil-times"></i></div>
+          </header>
+          <div class="content">
+            <p></p>
+            <textarea rows="10"cols="44" placeholder="Notes"></textarea>
+            <div class="field"></div>
+          </div>
+        </div></td>
+      </tr>
+      <tr>
+        <td>04/02/22 12:37:00 PM</td>
+        <td>Name #20</td>
+        <td>C:/Programe_Files/</td>
+        <td>JohnAcc</td>
+        <td>Microsoft_Word</td>
+        <td>20</td>
+        <td>T</td>
+        <td><button id="seen">Unacknowledged</button></td>
+        <td><button class="view-modal">Notes</button><div class="popup">
+          <header>
+            <span><input type="radio" id="Intentional" name="option" value="Intentional">
+              <label for="Intentional">Intentional</label><br></span>
+            <span><input type="radio" id="Malicious" name="option" value="Malicious">
+              <label for="Malicious">Malicious</label><br></span>
+            <div class="close"><i class="uil uil-times"></i></div>
+          </header>
+          <div class="content">
+            <p></p>
+            <textarea rows="10"cols="44" placeholder="Notes"></textarea>
+            <div class="field"></div>
+          </div>
+        </div></td>
+      </tr> -->
+    </tbody>
+  </table>
+  </div>
+</body>
+<script>
+  $(document).ready(function () {
+    $('#myTable').DataTable({
+      responsive: true,
+      "pageLength": 4
+    });
+  });
+
+  document.getElementById('seen').addEventListener('click', function(event) 
+  {
+  this.textContent = this.classList.toggle('hack') 
+                   ? 'Acknowledged'
+                   : 'Unacknowledged'
+  }, false );
+  
+  const viewBtn = document.querySelector(".view-modal"),
+    popup = document.querySelector(".popup"),
+    close = popup.querySelector(".close"),
+    field = popup.querySelector(".field"),
+    input = field.querySelector("input"),
+    copy = field.querySelector("button");
+
+    viewBtn.onclick = ()=>{
+      popup.classList.toggle("show");
+    }
+    close.onclick = ()=>{
+      viewBtn.click();
+    }
+</script>
+
+</html>
