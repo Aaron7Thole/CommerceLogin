@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+</head>
+<body>
+
+<form action ="/emailsend" method = "post">
+
+ <p>title : <input name ="title" type ="text" value=""/> <br>
+ <p>message : <input name = "msg" type ="text"  value="" style ="width:300px;height:420px"/><br>
+    <p> <button type ="submit"> Send </button>
+    <input type="hidden" name="_csrf" value="${_csrf.token}">
+</form>
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <title>Alert Page</title>
+  <meta name="description" content="Bootstrap.">
+  <link rel="stylesheet" href="sty.css">
+  </style>
+  <script type="text/javascript" src="ajax.js"></script>
+  <script type="text/javascript" src="filter.js"></script>
+  <link rel="stylesheet" href="alertStyle.css">
+  <link rel="stylesheet" href="popup.css">
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css">
+  </style>
+</head>
+<h1></h1>
+<body style="margin:20px auto">
+  <div id="Logo">
+    <img id="Logo_img" class="img " src="logo.png" />
+  </div>
+  <div id="h1">
+    <p src="user.png" th:text="${username}"><img id="u_img" class="img " src="user.png" /><span>UserName</span></p>
+  </div>
+  <div class="container"></div>
+
+  <table id="myTable" class="table table-striped">
+    <thead>
+      <tr>
+        <th>Timestamp<img src="arrows.png"width="12" height="auto"/></th>
+        <th>Hostname<img src="arrows.png"width="12" height="auto"/></th>
+        <th></th>
+        <th>File<img src="arrows.png"width="12" height="auto"/></th>
+        <th>Change Agent<img src="arrows.png"width="12" height="auto"/></th>
+        <th>Change Process<img src="arrows.png"width="12" height="auto"/></th>
+        <th>AppId<img src="arrows.png"width="12" height="auto"/></th>
+
+        <th>Acknowledge Alerts<img src="arrows.png"width="12" height="auto"/></th>
+      </tr>
+
+
+    </thead>
+    <tbody>
+    <tr th:each="alert : ${alerts}">
+      <td th:text="${alert.getTimestamp()}"></td>
+      <td th:text="${alert.getHostname()}"></td>
+      <td></td>
+      <td th:text="${alert.getFile()}"></td>
+      <td th:text="${alert.getChangeagent()}"></td>
+      <td th:text="${alert.getChangeprocess()}"></td>
+      <td th:text="${alert.getAppid()}"></td>
+      <td>
+
+          <div th:if="${alert.getAckstatus()} == 'N'">
+            <button id="showPopup" th:attr="alertid=${alert.getId()}">Unacknowledged</button>
+          </div>
+
+          <div th:unless="${alert.getAckstatus()} == 'N'">
+            <button id="showPopup" th:attr="alertid=${alert.getId()}">Acknowledged</button>
+          </div>
+
+
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="hide" id="popup">
+    <form action="/changeStatus" method="post">
+      <input id="currentAlertID" name="id" type="hidden" />
+      <span><input type="radio" id="Intentional" name="option" value="Intentional">
+        <label for="Intentional">Intentional</label><br></span>
+      <span><input type="radio" id="Malicious" name="option" value="Malicious">
+        <label for="Malicious">Malicious</label><br></span>
+      <div class="close" id="close"><i class="uil uil-times"></i></div>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</body>
+<script>
+  $(document).ready(function () {
+      $("#myTable").DataTable({
+          responsive: true,
+          pageLength: 4,
+      });
+  });
+
+  document.querySelectorAll('#showPopup').forEach(item=>{
+    item.addEventListener('click', function(event)
+  {
+    console.log(event);
+    const alertid=event.target.attributes.getNamedItem("alertid").value;
+    console.log(alertid);
+    var popup = document.getElementById("popup");
+    document.getElementById("currentAlertID").value=alertid;
+    popup.classList.remove("hide");
+    popup.classList.add("popup");
+    console.log("last");
+  }, false );
+  } )
+
+  document.getElementById('close').addEventListener('click', function(event)
+  {
+    var popup = document.getElementById("popup");
+    popup.classList.add("hide");
+    popup.classList.remove("popup");
+  }, false );
+
+</script>
+</html>
