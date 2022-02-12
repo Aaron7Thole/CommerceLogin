@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <title>Alert Page</title>
+  <meta name="description" content="Bootstrap.">
+  <link rel="stylesheet" href="sty.css">
+  </style>
+  <script type="text/javascript" src="ajax.js"></script>
+  <script type="text/javascript" src="filter.js"></script>
+  <link rel="stylesheet" href="alertStyle.css">
+  <link rel="stylesheet" href="popup.css">
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css">
+  </style>
+</head>
+<body style="margin:20px auto">
+  <div id="Logo">
+    <img id="Logo_img" class="img " src="logo.png" />
+  </div>
+  <div id="h1">
+    <p src="user.png" th:text="${username}"><img id="u_img" class="img " src="user.png" /><span>UserName</span></p>
+  </div>
+  <div class="container"></div>
+
+  <table id="myTable" class="table table-striped">
+    <thead>
+      <tr>
+        <th>Timestamp<img src="arrows.png"width="12" height="auto"/></th>
+        <th>Hostname<img src="arrows.png"width="12" height="auto"/></th>
+        <th></th>
+        <th>File<img src="arrows.png"width="12" height="auto"/></th>
+        <th>Change Agent<img src="arrows.png"width="12" height="auto"/></th>
+        <th>Change Process<img src="arrows.png"width="12" height="auto"/></th>
+        <th>AppId<img src="arrows.png"width="12" height="auto"/></th>
+
+        <th>Acknowledge Alerts<img src="arrows.png"width="12" height="auto"/></th>
+<!--        <th>Notes</th>-->
+      </tr>
+
+
+    </thead>
+    <tbody>
+    <tr th:each="alert : ${alerts}">
+      <td th:text="${alert.getTimestamp()}"></td>
+      <td th:text="${alert.getHostname()}"></td>
+      <td></td>
+      <td th:text="${alert.getFile()}"></td>
+      <td th:text="${alert.getChangeagent()}"></td>
+      <td th:text="${alert.getChangeprocess()}"></td>
+      <td th:text="${alert.getAppid()}"></td>
+      <td>
+        <form action = "/changeStatus" method ="post">
+
+          <div th:if="${alert.getAckstatus()} == 'N'">
+            <button id="seen"  type = submit >Unacknowledged</button>
+          </div>
+
+          <div th:unless="${alert.getAckstatus()} == 'N'">
+            <button id="hack"  type = submit >Acknowledged</button>
+          </div>
+
+          <input type="hidden" name = "id" id="id" th:value="${alert.getId()}">
+        </form>
+        <input type="hidden"   id = "ack"  th:value="${alert.getAckstatus()}" >
+      </td>
+
+<!--      <td>-->
+<!--        <button class="view-modal">Notes</button><div class="popup">-->
+
+
+<!--        <header>-->
+<!--                    <span><input type="radio" id="Intentional" name="option" value="Intentional">-->
+<!--                      <label for="Intentional">Intentional</label><br></span>-->
+<!--          <span><input type="radio" id="Malicious" name="option" value="Malicious">-->
+<!--                      <label for="Malicious">Malicious</label><br></span>-->
+<!--          <div class="close"><i class="uil uil-times"></i></div>-->
+<!--        </header>-->
+
+
+<!--        <div class="content">-->
+<!--          <p></p>-->
+<!--          <textarea rows="10"cols="44" placeholder="Notes"></textarea>-->
+<!--          <div class="field"></div>-->
+
+<!--        </div>-->
+
+<!--      </div></td>-->
+    </tr>
+    </tbody>
+  </table>
+  </div>
+</body>
+<script>
+  $(document).ready(function () {
+    $('#myTable').DataTable({
+      responsive: true,
+      "pageLength": 4
+    });
+  });
+
+
+/*
+  document.getElementById('seen').addEventListener('click', function(event)
+  {
+    var status = document.getElementById("ack").value;
+    alert("status === " + status);
+    if(status == "N"){
+      this.textContent = 'Unacknowledged'
+    }else{
+      this.textContent = 'Acknowledged'
+    }
+
+
+  }, false );
+
+  */
+
+  const viewBtn = document.querySelector(".view-modal"),
+    popup = document.querySelector(".popup"),
+    close = popup.querySelector(".close"),
+    field = popup.querySelector(".field"),
+    input = field.querySelector("input"),
+    copy = field.querySelector("button");
+
+    viewBtn.onclick = ()=>{
+      popup.classList.toggle("show");
+    }
+    close.onclick = ()=>{
+      viewBtn.click();
+    }
+</script>
+
+</html>
